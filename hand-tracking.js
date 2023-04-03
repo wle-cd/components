@@ -136,10 +136,9 @@ export class HandTracking extends Component {
                 this.hasPose = true;
 
                 if (inputSource.hand.get('wrist') !== null) {
-                    const WebXR = this.engine.wasm.WebXR;
-                    const p = Module['webxr_frame'].getJointPose(
+                    const p = this.engine.xrFrame.getJointPose(
                         inputSource.hand.get('wrist'),
-                        WebXR.refSpaces[WebXR.refSpace]
+                        this.engine.xrReferenceSpace
                     );
                     if (p) {
                         this.object.resetTranslationRotation();
@@ -169,10 +168,9 @@ export class HandTracking extends Component {
 
                     let jointPose = null;
                     if (inputSource.hand.get(jointName) !== null) {
-                        const WebXR = this.engine.wasm.WebXR;
-                        jointPose = Module['webxr_frame'].getJointPose(
+                        jointPose = this.engine.xrFrame.getJointPose(
                             inputSource.hand.get(jointName),
-                            WebXR.refSpaces[WebXR.refSpace]
+                            this.engine.xrReferenceSpace
                         );
                     }
                     if (jointPose !== null) {

@@ -21,15 +21,15 @@ export class PlayerHeight extends Component {
     }
 
     onXRSessionStart() {
-        const WebXR = this.engine.wasm.WebXR;
-        if (!['local', 'viewer'].includes(WebXR.refSpace)) {
+        const refSpaceType = this.engine.xrReferenceSpaceType;
+        if (!['local', 'viewer'].includes(refSpaceType)) {
             this.object.resetTranslationRotation();
         }
     }
 
     onXRSessionEnd() {
-        const WebXR = this.engine.wasm.WebXR;
-        if (!['local', 'viewer'].includes(WebXR.refSpace)) {
+        const refSpaceType = this.engine.xrReferenceSpaceType;
+        if (!['local', 'viewer'].includes(refSpaceType)) {
             this.object.resetTranslationRotation();
             this.object.translate([0.0, this.height, 0.0]);
         }
