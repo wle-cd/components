@@ -26,9 +26,8 @@ export class HitTestLocation extends Component {
     update(dt) {
         const wasVisible = this.visible;
         if (this.xrHitTestSource) {
-            const frame = this.engine.xrFrame;
-            if (!frame) return;
-            let hitTestResults = frame.getHitTestResults(this.xrHitTestSource);
+            if (!this.engine.xr) return;
+            let hitTestResults = this.engine.xr.frame.getHitTestResults(this.xrHitTestSource);
             if (hitTestResults.length > 0) {
                 let pose = hitTestResults[0].getPose(this.xrViewerSpace);
                 this.visible = true;

@@ -21,14 +21,14 @@ export class PlayerHeight extends Component {
     }
 
     onXRSessionStart() {
-        const refSpaceType = this.engine.xrReferenceSpaceType;
+        const refSpaceType = this.engine.xr.currentReferenceSpaceType;
         if (!['local', 'viewer'].includes(refSpaceType)) {
             this.object.resetTranslationRotation();
         }
     }
 
     onXRSessionEnd() {
-        const refSpaceType = this.engine.xrReferenceSpaceType;
+        const refSpaceType = this.engine.xr.currentReferenceSpaceType;
         if (!['local', 'viewer'].includes(refSpaceType)) {
             this.object.resetTranslationRotation();
             this.object.translate([0.0, this.height, 0.0]);

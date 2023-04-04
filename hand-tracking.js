@@ -118,7 +118,7 @@ export class HandTracking extends Component {
 
     update(dt) {
         if (!this.session) {
-            if (this.engine.xrSession) this.setupVREvents(this.engine.xrSession);
+            if (this.engine.xr) this.setupVREvents(this.engine.xr.session);
         }
 
         if (!this.session) return;
@@ -136,9 +136,9 @@ export class HandTracking extends Component {
                 this.hasPose = true;
 
                 if (inputSource.hand.get('wrist') !== null) {
-                    const p = this.engine.xrFrame.getJointPose(
+                    const p = this.engine.xr.frame.getJointPose(
                         inputSource.hand.get('wrist'),
-                        this.engine.xrReferenceSpace
+                        this.engine.xr.currentReferenceSpace
                     );
                     if (p) {
                         this.object.resetTranslationRotation();
@@ -168,9 +168,9 @@ export class HandTracking extends Component {
 
                     let jointPose = null;
                     if (inputSource.hand.get(jointName) !== null) {
-                        jointPose = this.engine.xrFrame.getJointPose(
+                        jointPose = this.engine.xr.frame.getJointPose(
                             inputSource.hand.get(jointName),
-                            this.engine.xrReferenceSpace
+                            this.engine.xr.currentReferenceSpace
                         );
                     }
                     if (jointPose !== null) {

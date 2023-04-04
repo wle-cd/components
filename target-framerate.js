@@ -23,8 +23,8 @@ export class TargetFramerate extends Component {
     };
 
     start() {
-        if (this.engine.xrSession) {
-            this.setTargetFramerate(this.engine.xrSession);
+        if (this.engine.xr) {
+            this.setTargetFramerate(this.engine.xr.session);
         } else {
             this.engine.onXRSessionStart.push(this.setTargetFramerate.bind(this));
         }
@@ -32,9 +32,9 @@ export class TargetFramerate extends Component {
 
     setTargetFramerate(s) {
         if (s.supportedFrameRates && s.updateTargetFrameRate) {
-            const a = this.engine.xrSession.supportedFrameRates;
+            const a = s.supportedFrameRates;
             a.sort((a, b) => Math.abs(a - this.framerate) - Math.abs(b - this.framerate));
-            this.engine.xrSession.updateTargetFrameRate(a[0]);
+            s.updateTargetFrameRate(a[0]);
         }
     }
 }

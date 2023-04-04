@@ -191,15 +191,15 @@ export class Cursor extends Component {
 
     doUpdate(doClick: boolean) {
         /* If in VR, set the cursor ray based on object transform */
-        if (this.engine.xrSession) {
+        if (this.engine.xr) {
             /* Since Google Cardboard tap is registered as arTouchDown without a gamepad, we need to check for gamepad presence */
             if (
                 this.arTouchDown &&
                 this.input &&
-                this.engine.xrSession.inputSources[0].handedness === 'none' &&
-                this.engine.xrSession.inputSources[0].gamepad
+                this.engine.xr.session.inputSources[0].handedness === 'none' &&
+                this.engine.xr.session.inputSources[0].gamepad
             ) {
-                const p = this.engine.xrSession.inputSources[0].gamepad.axes;
+                const p = this.engine.xr.session.inputSources[0].gamepad.axes;
                 /* Screenspace Y is inverted */
                 this.direction[0] = p[0];
                 this.direction[1] = -p[1];
@@ -326,7 +326,7 @@ export class Cursor extends Component {
         s.addEventListener('selectend', onSelectEnd);
 
         this.onDestroyCallbacks.push(() => {
-            if (!this.engine.xrSession) return;
+            if (!this.engine.xr) return;
             s.removeEventListener('select', onSelect);
             s.removeEventListener('selectstart', onSelectStart);
             s.removeEventListener('selectend', onSelectEnd);
